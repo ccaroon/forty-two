@@ -6,7 +6,7 @@ import click
 
 @click.group()
 def tempus():
-    """ Time Related Commands """
+    """ Manipulate Time """
 
 # format
 @tempus.command()

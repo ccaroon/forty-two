@@ -8,8 +8,7 @@ setup(
     version=forty_two.version.VERSION,
     packages=[
         'forty_two',
-        'forty_two.commands',
-        'forty_two.lib'
+        'forty_two.commands'
     ],
     package_dir={'forty_two': 'forty_two'},
     install_requires=[

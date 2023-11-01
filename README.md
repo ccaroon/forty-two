@@ -15,5 +15,6 @@ Options:
   --help     Show this message and exit.
 
 Commands:
-  tempus  Time Related Commands
+  advise  Ask the Magic Eight Ball
+  tempus  Manipulate Time
 ```
