@@ -6,6 +6,7 @@ import click
 
 from forty_two.commands import advise
 from forty_two.commands import tempus
+from forty_two.commands import utils
 from forty_two.version import VERSION
 
 @click.group()
@@ -22,6 +23,7 @@ def cli(ctx):
 # Add commands to main group
 cli.add_command(advise.advise)
 cli.add_command(tempus.tempus)
+cli.add_command(utils.utils)
 
 # ------------------------------------------------------------------------------
 # Allow execution as a script
