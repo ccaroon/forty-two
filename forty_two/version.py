@@ -2,4 +2,5 @@
 Forty-Two Version
 """
 
-VERSION = "1.0.0"
+# YY.MM.micro
+VERSION = "24.06.1"

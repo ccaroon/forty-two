@@ -6,7 +6,7 @@ A toolbox CLI for all of Life's needs.
 -----
 
 ```bash
-Usage: forty_two [OPTIONS] COMMAND [ARGS]...
+Usage: forty-two [OPTIONS] COMMAND [ARGS]...
 
   Forty-Two - The Answer to Life, The Universe & Everything
 
@@ -17,4 +17,5 @@ Options:
 Commands:
   advise  Ask the Magic Eight Ball
   tempus  Manipulate Time
+  utils   Utility Commands
 ```

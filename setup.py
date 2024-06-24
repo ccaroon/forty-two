@@ -17,7 +17,7 @@ setup(
     ],
     entry_points={
         'console_scripts': [
-            'forty_two=forty_two.main:cli',
+            'forty-two=forty_two.main:cli',
         ],
     },
 )
