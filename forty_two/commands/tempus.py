@@ -73,3 +73,27 @@ def dehumanize(human_str, tz):
         print(date.to(tz).dehumanize(human_str))
     except ValueError as err:
         print(err)
+
+
+# elapsed
+@tempus.command()
+@click.argument("start")
+@click.argument("end")
+def elapsed(start, end):
+    """
+    Compute the elapsed time between two date/time strings
+    """
+    start_dt = arrow.get(start)
+    end_dt = arrow.get(end)
+
+    elapsed = end_dt - start_dt
+    print(elapsed)
+
+
+
+
+
+
+
+
+#
