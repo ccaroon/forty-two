@@ -5,6 +5,7 @@ CLI Entry Point
 import click
 
 from forty_two.commands import advise
+from forty_two.commands import convert
 from forty_two.commands import tempus
 from forty_two.commands import utils
 from forty_two.version import VERSION
@@ -22,6 +23,7 @@ def cli(ctx):
 # ------------------------------------------------------------------------------
 # Add commands to main group
 cli.add_command(advise.advise)
+cli.add_command(convert.convert)
 cli.add_command(tempus.tempus)
 cli.add_command(utils.utils)
 
