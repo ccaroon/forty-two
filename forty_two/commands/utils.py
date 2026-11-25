@@ -1,7 +1,10 @@
 """
 Misc Utilities
 """
+
+import itertools
 import math
+import random
 import sys
 import time
 
@@ -10,7 +13,7 @@ import click
 
 @click.group()
 def utils():
-    """ Utility Commands """
+    """Utility Commands"""
 
 
 # mp2res
@@ -32,19 +35,19 @@ def mp2res(megapixels, aspect_ratio):
     aspect = int(ar1) / int(ar2)
 
     xres = round(math.sqrt(aspect * mp))
-    yres = round(math.sqrt((1/aspect) *  mp))
+    yres = round(math.sqrt((1 / aspect) * mp))
 
     print(f"{xres}x{yres}")
 
 
 # Timer
-PROGRESS_START='|'
-PROGRESS_MARK='='
-PROGRESS_END='|'
-PROGRESS_ICONS=[
-    '🕛', '🕐', '🕑', '🕒', '🕓', '🕔', '🕕', '🕖', '🕗', '🕘', '🕙', '🕚'
-]
-REPORT_EVERY=1
+PROGRESS_START = "|"
+PROGRESS_MARK = "="
+PROGRESS_END = "|"
+PROGRESS_ICONS = ["🕛", "🕐", "🕑", "🕒", "🕓", "🕔", "🕕", "🕖", "🕗", "🕘", "🕙", "🕚"]
+REPORT_EVERY = 1
+
+
 @utils.command()
 @click.option("--hrs", type=int, default=0, help="Set timer for H hours.")
 @click.option("--mins", type=int, default=0, help="Set timer for M minutes.")
@@ -56,19 +59,20 @@ def timer(hrs, mins, secs):
     Args:
 
         hrs (int): Set H hours on the timer.
-    
+
         mins (int): Set M minutes on the timer.
 
         secs (int): Set S seconds on the timer.
 
     """
+    # ruff: noqa: SIM108
     if hrs or mins or secs:
         limit = (hrs * 60 * 60) + (mins * 60) + secs
     else:
         limit = sys.maxsize
 
     count = 0
-    output = ''
+    output = ""
     limit_ind = f"{hrs:02d}:{mins:02d}:{secs:02d}" if hrs or mins or secs else "--:--:--"
     try:
         while count < limit:
@@ -81,12 +85,12 @@ def timer(hrs, mins, secs):
             elapsed = f"{hours:02d}:{minutes:02d}:{seconds:02d}"
             prefix = f"{icon}[{elapsed}/{limit_ind}]{PROGRESS_START}"
             output += PROGRESS_MARK
-            end_mark = '>'
+            end_mark = ">"
             if count % REPORT_EVERY == 0:
-                print(F"{prefix}{output}{end_mark}", end='\r', flush=True)
+                print(f"{prefix}{output}{end_mark}", end="\r", flush=True)
 
             if count % 60 == 0:
-                print(F"{prefix}{output}{PROGRESS_END}", flush=True)
+                print(f"{prefix}{output}{PROGRESS_END}", flush=True)
                 output = ""
 
             time.sleep(1)
@@ -98,3 +102,52 @@ def timer(hrs, mins, secs):
         seconds = count % 60
 
         print(f"\nElapsed Time: {hours}h {minutes}m {seconds}s")
+
+
+@utils.command()
+@click.argument("filename")
+@click.option("--groups", type=int, default=2)
+@click.option("--print-list", "-p", is_flag=True, default=False)
+def combos(filename, groups, print_list):
+    """Find all the combinations of the items listed in a file in N groups"""
+    items = []
+
+    # read the list of items - one per line
+    with open(filename) as fptr:
+        while item := fptr.readline():
+            items.append(item.strip())
+
+    combinations = itertools.combinations(items, groups)
+
+    if print_list:
+        for idx, c in enumerate(combinations):
+            print(f"{idx + 1}) ", " | ".join(c))
+    else:
+        item_count = len(items)
+        combo_count = len(list(combinations))
+        print(f"There are {combo_count} ways to combine {item_count} items into groups of {groups}")
+
+
+@utils.command()
+@click.argument("filename")
+@click.option("--count", "-c", type=int, default=1)
+def choose(filename, count):
+    """Randomly choose `count` items from the items listed in a file"""
+
+    items = []
+    with open(filename) as fptr:
+        while item := fptr.readline():
+            items.append(item.strip())
+
+    choices = []
+    for _ in range(count):
+        item = random.choice(items)
+
+        choices.append(item)
+        items.remove(item)
+
+    for item in choices:
+        print(item)
+
+
+#

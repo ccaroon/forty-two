@@ -1,0 +1,76 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "forty-two"
+dynamic = ["version"]
+readme = "README.md"
+license = "GPL-3.0-or-later"
+maintainers = [{ name = "Craig N. Caroon" }]
+dependencies = ["arrow ~= 1.4.0", "click ~= 8.5.1"]
+
+[project.scripts]
+forty-two = "forty_two.main:cli"
+
+[project.urls]
+Homepage = "https://github.com/ccaroon/forty-two"
+
+# https://pyrefly.org/en/docs/configuration/
+[tool.pyrefly]
+# Disable type-checking (for now)
+project-includes = []
+
+[tool.hatch.version]
+path = "forty_two/version.py"
+
+[tool.hatch.build.targets.sdist]
+include = ["/forty_two"]
+
+[tool.ruff.lint]
+# Explain a Rule: ruff rule <rule-name>
+select = [
+    "A",
+    "ARG",
+    "B",
+    "BLE",
+    "C4",
+    "COM",
+    "DTZ",
+    "E",
+    "EM",
+    "EXE",
+    "F",
+    "FBT",
+    "FLY",
+    "FURB",
+    "I",
+    "INT",
+    "ISC",
+    "ICN",
+    "INP",
+    "N",
+    "PIE",
+    "PYI",
+    "PT",
+    "PERF",
+    "PGH",
+    "PLC",
+    "PLE",
+    "Q",
+    "RUF",
+    "RSE",
+    "RET",
+    "SLF",
+    "SIM",
+    "TRY",
+    "UP",
+    "W",
+]
+ignore = [
+    # "PT009",  # Use a regular `assert`
+    # "PT027",  # Use `pytest.raises`
+    # "RET504", # Unnecessary assign before return
+    # "TRY201", # Needless exception name
+    "COM812", # missing trailing commas, conflicts with formatter which adds them
+]

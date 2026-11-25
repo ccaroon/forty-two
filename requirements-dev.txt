@@ -1,5 +1,0 @@
--r requirements.txt
-
-coverage ~= 7.5
-nose2 ~= 0.15
-pylint == 3.2

@@ -1,37 +1,33 @@
 """
 Convert - Unit Conversion
 """
-import click
+
 import re
+
+import click
+
 
 @click.group
 def convert():
-    """ Unit Conversion """
-    pass
+    """Unit Conversion"""
+
 
 # Each successive unit is defined in the previous unit
 # Example: 1yd is 3 feet, thus "yd" conv_amt is "3"
 #          1ft is 12 inches, thus "ft" conv_amt is "12"
 #          Etc, down to the base unit of 1 mm.
 LENGTH_UNIT_MAP = {
-    "units":      ("mm", "cm", "in", "ft", "yd", "m",                    "km", "mi"),
-    "conv_amt":   ( 1,    10,   2.54, 12,   3,    1.09361329833770778653, 1000, 1.609344)
+    "units": ("mm", "cm", "in", "ft", "yd", "m", "km", "mi"),
+    "conv_amt": (1, 10, 2.54, 12, 3, 1.09361329833770778653, 1000, 1.609344),
 }
 
+# ruff: noqa: N803
 TEMPERATURE_FORMULAS = {
-    "c": {
-        "f": lambda C: (C * 9/5) + 32,
-        "k": lambda C: C + 273.15
-    },
-    "f": {
-        "c":  lambda F: (F - 32) * (5/9),
-        "k": lambda F: (F - 32) * (5/9) + 273.15
-    },
-    "k": {
-        "c": lambda K: K - 273.15,
-        "f": lambda K: (K - 273.15) * (9/5) + 32
-    }
+    "c": {"f": lambda C: (C * 9 / 5) + 32, "k": lambda C: C + 273.15},
+    "f": {"c": lambda F: (F - 32) * (5 / 9), "k": lambda F: (F - 32) * (5 / 9) + 273.15},
+    "k": {"c": lambda K: K - 273.15, "f": lambda K: (K - 273.15) * (9 / 5) + 32},
 }
+
 
 # length
 @convert.command()
@@ -89,7 +85,8 @@ def __convert_length(amount, src_unit, dest_unit):
         src_unit_idx = LENGTH_UNIT_MAP["units"].index(src_unit)
         dest_unit_idx = LENGTH_UNIT_MAP["units"].index(dest_unit)
     except ValueError:
-        raise ValueError(f"Don't know how to convert from '{src_unit}' to '{dest_unit}'")
+        msg = f"Don't know how to convert from '{src_unit}' to '{dest_unit}'"
+        raise ValueError(msg) from None
 
     if src_unit_idx < dest_unit_idx:
         # Convert Up
@@ -116,6 +113,7 @@ def __convert_temperature(amount, src_unit, dest_unit):
     if formula:
         result = formula(amount)
     else:
-        raise ValueError(f"Don't know how to convert from '{src_unit}' to '{dest_unit}'")
+        msg = f"Don't know how to convert from '{src_unit}' to '{dest_unit}'"
+        raise ValueError(msg)
 
     return result

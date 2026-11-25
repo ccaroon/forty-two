@@ -2,13 +2,12 @@
 """
 CLI Entry Point
 """
+
 import click
 
-from forty_two.commands import advise
-from forty_two.commands import convert
-from forty_two.commands import tempus
-from forty_two.commands import utils
+from forty_two.commands import advise, convert, tempus, utils
 from forty_two.version import VERSION
+
 
 @click.group()
 @click.version_option(version=VERSION, message="%(version)s")
@@ -19,6 +18,7 @@ def cli(ctx):
     """
     # Init Context user object,`ctx.obj`, to empty dict
     ctx.obj = {}
+
 
 # ------------------------------------------------------------------------------
 # Add commands to main group

@@ -1,6 +1,7 @@
 """
 Advise - Magic Eight Ball Predictions
 """
+
 import random
 
 import click
@@ -11,7 +12,7 @@ RESPONSES = [
     "Better not tell you now.",
     "Cannot predict now.",
     "Concentrate and ask again.",
-    "Don’t count on it.",
+    "Don't count on it.",
     "It is certain.",
     "It is decidedly so.",
     "Most likely.",
@@ -24,15 +25,16 @@ RESPONSES = [
     "Very doubtful.",
     "Without a doubt.",
     "Yes.",
-    "Yes – definitely.",
-    "You may rely on it."
+    "Yes - definitely.",
+    "You may rely on it.",
 ]
+
 
 # advise
 @click.command()
 @click.argument("question")
 def advise(question):
-    """ Ask the Magic Eight Ball """
+    """Ask the Magic Eight Ball"""
     answer = random.choice(RESPONSES)
     print(f'"{question.title()}"? 🎱 {answer} 🎱')
     # print(F"")
